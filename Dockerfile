@@ -1,11 +1,17 @@
-FROM node:18-bullseye
+FROM php:8.2
 MAINTAINER Antonio Andrade (antonio@whitefactory.io)
+SHELL ["/bin/bash", "--login", "-c"]
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+RUN chmod +x /usr/local/bin/install-php-extensions
+RUN install-php-extensions gd zip pcntl @composer
 RUN apt update
 RUN apt install build-essential wget software-properties-common ca-certificates lsb-release apt-transport-https git zip unzip -y
 RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.22-1_all.deb | apt install
-RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg 
-RUN sh -c 'echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' 
-RUN apt update && apt dist-upgrade -y
-RUN apt install php8.2 -y
-RUN wget https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions | sh -s gd zip pcntl @composer
+RUN apt dist-upgrade -y
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+RUN nvm install 18
+RUN node -v
+RUN npm i -g npm yarn
+RUN npm -v
+RUN yarn -v
 RUN apt autoremove --purge -y && apt clean -y
