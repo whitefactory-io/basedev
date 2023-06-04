@@ -9,9 +9,6 @@ RUN apt install rsync build-essential wget software-properties-common ca-certifi
 RUN apt dist-upgrade -y
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 RUN nvm install 18
-RUN node -v
 RUN npm i -g npm yarn
 RUN echo 'export PATH="`yarn global bin`:$HOME/bin:/usr/local/bin:$PATH"' >> ~/.bashrc
-RUN npm -v
-RUN yarn -v
 RUN apt autoremove --purge -y && apt clean -y
