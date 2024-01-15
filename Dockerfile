@@ -6,7 +6,7 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN chmod +x /usr/local/bin/install-php-extensions
 RUN install-php-extensions exif gd zip pcntl @composer pdo_mysql
 RUN apt update
-RUN apt install rsync build-essential wget software-properties-common ca-certificates lsb-release apt-transport-https git zip unzip wget -y
+RUN apt install rsync build-essential sqlite3 wget software-properties-common ca-certificates lsb-release apt-transport-https git zip unzip wget -y
 RUN apt dist-upgrade -y
 RUN wget https://dev.mysql.com/get/mysql-apt-config_0.8.26-1_all.deb && DEBIAN_FRONTEND=noninteractive apt install ./mysql-apt-config_0.8.26-1_all.deb -y && apt update && apt install mysql-client -y && rm mysql-apt-config_0.8.26-1_all.deb
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
